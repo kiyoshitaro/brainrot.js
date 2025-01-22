@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  app:
+    platform: linux/arm64/v8
+    image: brainrot
+    container_name: brainrot-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/brainrot
+    # command: gunicorn -w 1 -b 0.0.0.0:5000 --access-logfile access.log --error-logfile error.log transcribe:app --daemon --timeout 120
+    # command: tail -f /dev/null
+    command: >
+      gunicorn -w 1 -b 0.0.0.0:5000 --access-logfile access.log --error-logfile error.log --chdir /app/brainrot --reload transcribe:app --timeout 120
+    restart: unless-stopped
+    tty: true
+    # volumes:
+    #   - .:/app/brainrot
+    #   - /app/brainrot/node_modules
+    env_file:
+      - .env.dev
+    ports:
+      - '5002:5000'
+      - '3000:3000'
+    volumes:
+      - .:/app/brainrot
+      - /app/brainrot/node_modules
