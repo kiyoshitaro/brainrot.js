@@ -67,9 +67,19 @@ bun.lockb
 .open-next
 .env.dev
 
-deepai/*
-venv/*
+# deepai/*
+# venv/*
 
-hidden/*
-src/tmp/*
-public/*
+# hidden/*
+# src/tmp/*
+# public/*
+
+/.env
+/node_modules
+/package-lock.json
+/public/out
+/venv/
+/public/srt/*
+!/public/srt/_
+/public/voice/*
+!/public/voice/_
